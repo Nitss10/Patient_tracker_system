@@ -1,0 +1,160 @@
+/* styles.css */
+
+/***********************
+      Login Section
+***********************/
+
+.login-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    max-width: 400px;
+}
+
+h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-weight: bold;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.error-message {
+    color: red;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/***********************
+      Signup Section
+***********************/
+
+.signup-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    max-width: 400px;
+}
+
+h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.role-selection label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.form-container {
+    display: none;
+    margin-top: 15px;
+}
+
+.form-container .form-group {
+    margin-bottom: 15px;
+}
+
+.form-container label {
+    font-weight: bold;
+}
+
+.form-container input[type="text"],
+.form-container input[type="password"],
+.form-container input[type="number"],
+.form-container select,
+.form-container textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/***********************
+   Home Section
+***********************/
+
+.home-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.home-title {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.welcome-message {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.dashboard-link,
+.auth-link {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-decoration: none;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.dashboard-link:hover,
+.auth-link:hover {
+    background-color: #0056b3;
+}

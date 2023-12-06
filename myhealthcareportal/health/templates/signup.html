@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="signup-container">
+    <h2>Sign Up</h2>
+    <form method="post" id="signupForm">
+        {% csrf_token %}
+
+        <div>
+            <label for="role_doctor">
+                <input type="radio" name="role" value="doctor" id="role_doctor" required onchange="showForm('doctor')">
+                I am a Doctor
+            </label>
+            <label for="role_patient">
+                <input type="radio" name="role" value="patient" id="role_patient" required onchange="showForm('patient')">
+                I am a Patient
+            </label>
+        </div>
+
+        <div id="doctorForm" class="form-container">
+            <h3>Doctor Information</h3>
+            <div class="form-group">
+                {{ doctor_form.username.label_tag }}
+                {{ doctor_form.username }}
+            </div>
+            <div class="form-group">
+                {{ doctor_form.email.label_tag }}
+                {{ doctor_form.email }}
+            </div>
+            <div class="form-group">
+                {{ doctor_form.password1.label_tag }}
+                {{ doctor_form.password1 }}
+            </div>
+            <div class="form-group">
+                {{ doctor_form.password2.label_tag }}
+                {{ doctor_form.password2 }}
+            </div>
+            <!-- Add other doctor-specific fields here -->
+            <div class="form-group">
+                {{ doctor_form.name.label_tag }}
+                {{ doctor_form.name }}
+            </div>
+            <div class="form-group">
+                {{ doctor_form.mobile_no.label_tag }}
+                {{ doctor_form.mobile_no }}
+            </div>
+            <div class="form-group">
+                {{ doctor_form.address.label_tag }}
+                {{ doctor_form.address }}
+            </div>
+            <div class="form-group">
+                {{ doctor_form.qualification.label_tag }}
+                {{ doctor_form.qualification }}
+            </div>
+            <div class="form-group">
+                {{ doctor_form.specialisation.label_tag }}
+                {{ doctor_form.specialisation }}
+            </div>
+            <div class="form-group">
+                {{ doctor_form.gender.label_tag }}
+                {{ doctor_form.gender }}
+            </div>
+            <div class="form-group">
+                {{ doctor_form.bio.label_tag }}
+                {{ doctor_form.bio }}
+            </div>
+        </div>
+
+        <div id="patientForm" class="form-container">
+            <h3>Patient Information</h3>
+            <div class="form-group">
+                {{ patient_form.username.label_tag }}
+                {{ patient_form.username }}
+            </div>
+            <div class="form-group">
+                {{ patient_form.email.label_tag }}
+                {{ patient_form.email }}
+            </div>
+            <div class="form-group">
+                {{ patient_form.password1.label_tag }}
+                {{ patient_form.password1 }}
+            </div>
+            <div class="form-group">
+                {{ patient_form.password2.label_tag }}
+                {{ patient_form.password2 }}
+            </div>
+            <!-- Add other patient-specific fields here -->
+            <div class="form-group">
+                {{ patient_form.name.label_tag }}
+                {{ patient_form.name }}
+            </div>
+            <div class="form-group">
+                {{ patient_form.mobile_no.label_tag }}
+                {{ patient_form.mobile_no }}
+            </div>
+            <div class="form-group">
+                {{ patient_form.address.label_tag }}
+                {{ patient_form.address }}
+            </div>
+            <div class="form-group">
+                {{ patient_form.weight.label_tag }} Kg
+                {{ patient_form.weight }}
+            </div>
+            <div class="form-group">
+                {{ patient_form.height.label_tag }} Cms
+                {{ patient_form.height }}
+            </div>
+            <div class="form-group">
+                {{ patient_form.blood_group.label_tag }}
+                {{ patient_form.blood_group }}
+            </div>
+            <div class="form-group">
+                {{ patient_form.gender.label_tag }} Male/Female/Others
+                {{ patient_form.gender }}
+            </div>
+            <div class="form-group">
+                {{ patient_form.age.label_tag }}
+                {{ patient_form.age }}
+            </div>
+        </div>
+
+        <button class="btn-primary" type="submit">Sign Up</button>
+    </form>
+    <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+</div>
+
+<script>
+function showForm(role) {
+    var doctorForm = document.getElementById('doctorForm');
+    var patientForm = document.getElementById('patientForm');
+    var doctorInputs = doctorForm.querySelectorAll('input, textarea');
+    var patientInputs = patientForm.querySelectorAll('input, textarea');
+
+    if (role === 'doctor') {
+        doctorForm.style.display = 'block';
+        patientForm.style.display = 'none';
+        doctorInputs.forEach(input => input.required = true);
+        patientInputs.forEach(input => input.required = false);
+    } else if (role === 'patient') {
+        doctorForm.style.display = 'none';
+        patientForm.style.display = 'block';
+        doctorInputs.forEach(input => input.required = false);
+        patientInputs.forEach(input => input.required = true);
+    }
+}
+</script>
+{% endblock %}

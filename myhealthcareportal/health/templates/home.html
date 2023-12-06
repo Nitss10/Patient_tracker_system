@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="home-container">
+    <h1 class="home-title">Welcome to the Health Care Management Portal</h1>
+    {% if user.is_authenticated %}
+        <p class="welcome-message">Hello, {{ user.username }}!</p>
+        {% if user.userprofile.is_doctor %}
+            <a href="{% url 'doctor_dashboard' %}" class="dashboard-link">View Doctor Dashboard</a>
+        {% else %}
+            <a href="{% url 'patient_dashboard' %}" class="dashboard-link">View Patient Dashboard</a>
+        {% endif %}
+    {% else %}
+        <a href="{% url 'login' %}" class="auth-link">Login</a> or <a href="{% url 'signup' %}" class="auth-link">Sign Up</a>
+    {% endif %}
+</div>
+{% endblock %}
