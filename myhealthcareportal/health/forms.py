@@ -72,3 +72,31 @@ class MedicalHistoryForm(forms.ModelForm):
     class Meta:
         model = PatientMedicalHistory
         fields = ['allergies', 'prior_diseases', 'family_history']
+
+
+class AppointmentForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(AppointmentForm, self).__init__(*args, **kwargs)
+        self.fields['doctor'].label_from_instance = lambda obj: f"{obj.name}"
+
+    doctor = forms.ModelChoiceField(
+        queryset=Doctor.objects.all(),
+        empty_label="Select Doctor"
+    )
+    appointment_date_time = forms.DateTimeField(
+        widget=forms.DateTimeInput(attrs={'type': 'datetime-local'})
+    )
+
+    class Meta:
+        model = Appointment
+        fields = ['doctor', 'appointment_date_time', 'subject']
+
+
+class ConsultationForm(forms.ModelForm):
+    follow_up_date = forms.DateTimeField(
+        required=False, widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}))
+
+    class Meta:
+        model = ConsultationHistory
+        fields = ['symptoms', 'diagnosis', 'prescribed_medication',
+                  'recommended_lab_tests', 'remarks', 'follow_up_date']
