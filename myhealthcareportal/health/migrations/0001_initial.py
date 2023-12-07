@@ -15,6 +15,15 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
+            name='Appointment',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('appointment_date_time', models.DateTimeField()),
+                ('subject', models.CharField(max_length=255)),
+                ('completed', models.BooleanField(default=False)),
+            ],
+        ),
+        migrations.CreateModel(
             name='Patient',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
@@ -29,6 +38,16 @@ class Migration(migrations.Migration):
                 ('gender', models.CharField(max_length=255)),
                 ('age', models.IntegerField()),
                 ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='PatientMedicalReports',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('medical_report_name', models.CharField(max_length=255)),
+                ('test_date', models.DateField()),
+                ('medical_report', models.BinaryField()),
+                ('patient', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='health.patient')),
             ],
         ),
         migrations.CreateModel(
@@ -57,5 +76,28 @@ class Migration(migrations.Migration):
                 ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
-        
+        migrations.CreateModel(
+            name='ConsultationHistory',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('symptoms', models.CharField(max_length=255)),
+                ('diagnosis', models.CharField(max_length=255)),
+                ('prescribed_medication', models.TextField()),
+                ('recommended_lab_tests', models.CharField(max_length=255)),
+                ('remarks', models.TextField()),
+                ('last_updated_on', models.DateTimeField(auto_now=True)),
+                ('follow_up_date', models.DateTimeField(blank=True, null=True)),
+                ('appointment', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='health.appointment')),
+            ],
+        ),
+        migrations.AddField(
+            model_name='appointment',
+            name='doctor',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='health.doctor'),
+        ),
+        migrations.AddField(
+            model_name='appointment',
+            name='patient',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='health.patient'),
+        ),
     ]

@@ -28,6 +28,13 @@ class Patient(models.Model):
     gender = models.CharField(max_length=255)
     age = models.IntegerField()
 
+class Appointment(models.Model):
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
+    appointment_date_time = models.DateTimeField()
+    subject = models.CharField(max_length=255)
+    completed = models.BooleanField(default=False)
+
 class PatientMedicalHistory(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     allergies = models.CharField(max_length=255)
@@ -39,3 +46,14 @@ class PatientMedicalReports(models.Model):
     medical_report_name = models.CharField(max_length=255)
     test_date = models.DateField()
     medical_report = models.FileField(upload_to='medical_reports/')
+
+
+class ConsultationHistory(models.Model):
+    appointment = models.ForeignKey(Appointment, on_delete=models.CASCADE)
+    symptoms = models.CharField(max_length=255)
+    diagnosis = models.CharField(max_length=255)
+    prescribed_medication = models.TextField()  # BLOB field is equivalent to Django's TextField
+    recommended_lab_tests = models.CharField(max_length=255)
+    remarks = models.TextField()
+    last_updated_on = models.DateTimeField(auto_now=True)
+    follow_up_date = models.DateTimeField(null=True, blank=True)
