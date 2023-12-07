@@ -1,6 +1,37 @@
 /* styles.css */
 
 /***********************
+   Quick Links Section
+***********************/
+
+.dashboard-links {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.links-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.links-list li {
+    margin-bottom: 10px;
+}
+
+.links-list a {
+    text-decoration: none;
+    color: #0e753e;
+    font-weight: bold;
+    transition: color 0.3s ease-in-out;
+}
+
+.links-list a:hover {
+    color: #0056b3;
+}
+
+/***********************
       Login Section
 ***********************/
 
@@ -119,6 +150,59 @@ h2 {
 }
 
 /***********************
+   Patient Dashboard Section
+***********************/
+
+.navbar {
+    background-color: #007BFF;
+    padding: 10px;
+}
+
+.nav-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-item {
+    display: inline;
+    margin-right: 20px;
+}
+
+.nav-item a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+    transition: color 0.3s ease-in-out;
+}
+
+.nav-item a:hover {
+    color: #00b368;
+}
+
+.container {
+    margin: 20px;
+    padding: 20px;
+    background-color: #f2f2f2;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+h2 {
+    color: #333;
+}
+
+.patient-info {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/***********************
    Home Section
 ***********************/
 
@@ -157,4 +241,103 @@ h2 {
 .dashboard-link:hover,
 .auth-link:hover {
     background-color: #0056b3;
+}
+
+/***********************
+   Doctor Dashboard Section
+***********************/
+
+.doctor-dashboard {
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.dashboard-filters {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.filter-form {
+    display: flex;
+    align-items: center;
+}
+
+.filter-form label {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.filter-select {
+    padding: 5px;
+}
+
+.filter-date {
+    padding: 5px;
+}
+
+.filter-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.appointments-list {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.appointment-item {
+    margin-bottom: 10px;
+    list-style: none;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+}
+
+.appointment-info {
+    font-weight: bold;
+}
+
+.view-patient-link a {
+    text-decoration: none;
+    color: #d8e0e9;
+    margin-left: 10px;
+}
+
+.appointment-subject {
+    margin-left: 10px;
+}
+
+.mark-done-form,
+.delete-appointment-form {
+    display: inline;
+}
+
+.mark-done-button,
+.delete-appointment-button {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.edit-appointment-link a {
+    text-decoration: none;
+    color: #28a745;
+    margin-left: 10px;
+}
+
+.completed-appointment {
+    color: #28a745;
+    margin-left: 10px;
 }

@@ -1,0 +1,20 @@
+<!-- patient_dashboard.html -->
+{% extends "base_patient.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="dashboard-content">
+        <h2>Welcome, {{ patient.name }}!</h2>
+        <div class="patient-info">
+            <p>Email: {{ patient.email }}</p>
+            <p>Mobile No: {{ patient.mobile_no }}</p>
+            <p>Address: {{ patient.address }}</p>
+            <p>Weight: {{ patient.weight }} kg</p>
+            <p>Height: {{ patient.height }} cm</p>
+            <p>Blood Group: {{ patient.blood_group }}</p>
+            <p>Gender: {{ patient.gender }}</p>
+            <p>Age: {{ patient.age }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

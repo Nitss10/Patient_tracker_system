@@ -1,0 +1,45 @@
+<!-- base.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Health Care Management Portal</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="alert {% if 'error' in message.tags %}alert-error{% else %}alert-success{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <nav class="navbar">
+        <ul class="nav-list">
+            <li class="nav-item"><a href="{% url 'patient_dashboard' %}">Home</a></li>
+            <li class="nav-item"><a href="{% url 'update_patient_details' %}">Update Personal Details</a></li>
+            <li class="nav-item"><a href="{% url 'upload_medical_record' %}">Upload Medical Records</a></li>
+            <li class="nav-item"><a href="{% url 'schedule_appointment' %}">Schedule an Appointment</a></li>
+            <li class="nav-item"><a href="{% url 'view_appointments' %}">View Appointments</a></li>
+            <li class="nav-item"><a href="{% url 'view_medical_history' %}">View Medical History</a></li>
+            <li class="nav-item"><a href="{% url 'view_medical_reports' %}">View Medical Reports</a></li>
+            <li class="nav-item"><a href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+    </nav>
+    {% block content %}{% endblock %}
+    <script>
+        window.setTimeout(function() {
+            var alerts = document.querySelectorAll('.alert');
+            for(var i = 0; i < alerts.length; i++) {
+                alerts[i].style.opacity = '0';
+                setTimeout(function(alert) {
+                    alert.style.display = 'none';
+                }, 600, alerts[i]);
+            }
+        }, 2000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+{% extends "base_doctor.html" %}
+
+{% block content %}
+<div class="doctor-dashboard">
+    <h2>Welcome, Dr. {{ doctor.name }}!</h2>
+
+    <div class="dashboard-filters">
+        <form method="get" class="filter-form">
+            <label for="top_x">View Top:</label>
+            <input type="number" id="top_x" name="top_x" min="1">
+            <button type="submit" class="filter-button">Apply</button>
+        </form>
+
+        <form method="get" class="filter-form">
+            <label for="time_range">Time Range:</label>
+            <select id="time_range" name="time_range" class="filter-select">
+                <option value="day">Today</option>
+                <option value="week">This Week</option>
+                <option value="month">This Month</option>
+                <option value="custom">Custom</option>
+            </select>
+            <label for="custom_start">Start Date:</label>
+            <input type="date" id="custom_start" name="custom_start" class="filter-date">
+            <label for="custom_end">End Date:</label>
+            <input type="date" id="custom_end" name="custom_end" class="filter-date">
+            <button type="submit" class="filter-button">Filter</button>
+        </form>
+    </div>
+
+    <h3>Appointments from {{ start_date }} to {{ end_date }}</h3>
+    <div class="appointments-list">
+        {% if appointments %}
+            <ul>
+                {% for appointment in appointments %}
+                <li class="appointment-item">
+                    <span class="appointment-info">
+                        {{ appointment.appointment_date_time }} -
+                        {{ appointment.patient.name }}
+                    </span>
+                    <span class="view-patient-link">
+                        <a href="{% url 'view_patient_details' patient_id=appointment.patient.id %}">View Patient</a>
+                    </span>
+                    <span class="appointment-subject">
+                        - Subject: {{ appointment.subject }}
+                    </span>
+                    {% if not appointment.completed %}
+                        <form method="post" class="mark-done-form">
+                            {% csrf_token %}
+                            <input type="hidden" name="appointment_id" value="{{ appointment.id }}">
+                            <button type="submit" name="mark_done" class="mark-done-button">Mark as Done</button>
+                        </form>
+                        <span class="edit-appointment-link">
+                            <a href="{% url 'edit_appointment' appointment.id %}?referrer=dashboard">Edit</a>
+                        </span>
+                        <form method="post" action="{% url 'delete_appointment' appointment.id %}?referrer=dashboard" class="delete-appointment-form">
+                            {% csrf_token %}
+                            <button type="submit" class="delete-appointment-button">Delete Appointment</button>
+                        </form>
+                    {% else %}
+                        <span class="completed-appointment">[Completed]</span>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No appointments found for the selected range.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

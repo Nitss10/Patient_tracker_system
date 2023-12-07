@@ -1,0 +1,41 @@
+<!-- base.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Health Care Management Portal</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="alert {% if 'error' in message.tags %}alert-error{% else %}alert-success{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <div class="navbar">
+        <ul class="nav-list">
+            <li class="nav-item"><a href="{% url 'doctor_dashboard' %}">Doctor Dashboard</a></li>
+            <li class="nav-item"><a href="{% url 'view_patient_list' %}">View Patient List</a></li>
+            <li class="nav-item"><a href="{% url 'view_appointment_calendar' %}">View Appointment Calendar</a></li>
+            <li class="nav-item"><a href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+    </div>
+    {% block content %}{% endblock %}
+    <script>
+        window.setTimeout(function() {
+            var alerts = document.querySelectorAll('.alert');
+            for(var i = 0; i < alerts.length; i++) {
+                alerts[i].style.opacity = '0';
+                setTimeout(function(alert) {
+                    alert.style.display = 'none';
+                }, 600, alerts[i]);
+            }
+        }, 2000);
+    </script>
+</body>
+</html>
