@@ -1,0 +1,23 @@
+{% extends "base_doctor.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Edit Appointment</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.doctor.label_tag }}
+            {{ form.doctor }}
+        </div>
+        <div class="form-group">
+            {{ form.appointment_date_time.label_tag }}
+            {{ form.appointment_date_time }}
+        </div>
+        <div class="form-group">
+            {{ form.subject.label_tag }}
+            {{ form.subject }}
+        </div>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    </form>
+</div>
+{% endblock %}

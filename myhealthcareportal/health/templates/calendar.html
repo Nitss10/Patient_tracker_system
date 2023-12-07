@@ -1,0 +1,16 @@
+{% extends "base_doctor.html" %} 
+
+{% block content %} 
+
+<div class="calendar">
+{% for date, appointment_list in appointments.items %}
+        <h2>{{ date }}</h2>
+        {% for appointment in appointment_list %}
+        <div class="appointment">
+            <p class="appointment-info">Patient: {{ appointment.patient.name }}</p>
+            <p class="appointment-info">Subject: {{ appointment.subject }}</p>
+        </div>
+        {% endfor %}
+        {% endfor %}
+    </div>
+{% endblock %}
