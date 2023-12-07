@@ -1,0 +1,29 @@
+{% extends "base_doctor.html" %}
+
+{% block content %}
+<div class="dashboard-container">
+    <div class="search-container">
+        <form method="get" action="" class="search-form">
+            <input type="text" name="keyword" placeholder="Enter keyword" value="{{ keyword }}" class="search-input">
+            <button type="submit" class="search-button">Search</button>
+        </form>
+    </div>
+
+    <div class="patient-list-container">
+        {% if patients %}
+            <ul class="patient-list">
+                {% for patient in patients %}
+                    <li class="patient-item">
+                        {{ patient.name }} - {{ patient.id }} 
+                        <a href="{% url 'view_patient_details' patient.id %}" class="details-link">View Details</a>
+                    </li>
+                    <!-- Add spacing between list items -->
+                    <div class="list-item-spacing"></div>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="no-patients-message">No patients found.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

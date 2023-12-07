@@ -32,6 +32,39 @@
 }
 
 /***********************
+     Messages Section
+***********************/
+
+.messages {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    width: 80%;
+}
+
+.alert {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.alert-success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+
+.alert-error {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+
+/***********************
       Login Section
 ***********************/
 
@@ -203,6 +236,95 @@ h2 {
 }
 
 /***********************
+   Appointment Page Section
+***********************/
+
+.appointment-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.appointment-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+.appointment-details {
+    display: block;
+}
+
+.appointment-date {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.appointment-doctor {
+    font-size: 14px;
+}
+
+.appointment-subject {
+    font-size: 14px;
+}
+
+.no-appointments {
+    font-size: 16px;
+    margin-top: 10px;
+    color: #999;
+}
+
+/***********************
+   Medical History Section
+***********************/
+
+.medical-history-item {
+    background-color: #f9f9f9;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    margin-bottom: 10px;
+}
+
+/***********************
+   Medical Reports Section
+***********************/
+
+.medical-reports {
+    margin-top: 20px;
+}
+
+.medical-report-item {
+    background-color: #f9f9f9;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.btn-download {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn-download:hover {
+    background-color: #0056b3;
+}
+
+/***********************
    Home Section
 ***********************/
 
@@ -340,4 +462,236 @@ h2 {
 .completed-appointment {
     color: #28a745;
     margin-left: 10px;
+}
+
+/***********************
+   Patient List Section
+***********************/
+
+.dashboard-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.search-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.search-form {
+    display: inline-block;
+}
+
+.search-input {
+    width: 200px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.search-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search-button:hover {
+    background-color: #0056b3;
+}
+
+.patient-list-container {
+    text-align: center;
+}
+
+.patient-list {
+    list-style: none;
+    padding: 0;
+}
+
+.patient-item {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.details-link {
+    text-decoration: none;
+    color: #007bff;
+    margin-left: 10px;
+}
+
+/***********************
+   Patient Details Section
+***********************/
+
+.patient-details-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.patient-details-section,
+.medical-history-section,
+.medical-reports-section,
+.appointments-section {
+    flex: 1;
+    padding: 20px;
+    margin: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+h2 {
+    color: #333;
+}
+
+.patient-details-section p,
+.medical-history-details .history-item p,
+.medical-report-details .report-item p,
+.appointments-section .appointment-item p {
+    margin: 5px 0;
+}
+
+button,
+a {
+    padding: 5px 10px;
+    margin: 5px 0;
+    background-color: #00a2ff;
+    color: #fff !important;
+    text-decoration: none;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+button:hover,
+a:hover {
+    background-color: #42b300;
+}
+
+.appointments-section .appointment-item p strong {
+    color: green;
+}
+
+.consultations-details .consultation-item {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #fff;
+}
+
+
+.list-item-spacing {
+    height: 10px; /* Adjust the height to control spacing */
+}
+
+
+
+body {
+    background: linear-gradient(45deg, #bfcbc5, #bfd2da); /* You can adjust the gradient colors */
+    color: #333; /* Change this to your desired text color for better contrast */
+    margin: 0; /* Remove default body margin */
+    min-height: 100vh; /* Ensure the gradient spans the full viewport height */
+}
+
+
+/* Style the quick links section */
+.dashboard-links {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Style the links list */
+.links-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.links-list li {
+    margin-bottom: 10px;
+}
+
+.links-list a {
+    text-decoration: none;
+    color: #0e753e;
+    font-weight: bold;
+    transition: color 0.3s ease-in-out;
+}
+
+.links-list a:hover {
+    color: #0056b3;
+}
+
+
+.patient-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Style for the section title */
+.section-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Style for the consultation form container */
+.consultation-form {
+    background-color: #f7f7f7;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for form groups (each form field) */
+.form-group {
+    margin-bottom: 20px;
+}
+
+
+.medical-history-section {
+    margin-top: 20px;
+}
+
+.medical-history-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.history-item {
+    flex: 1;
+    background-color: #f7f7f7;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.history-record {
+    margin-bottom: 10px;
+}
+
+.calendar {
+    padding: 3vb 5vh;
+}
+.appointment {
+    border: 2px solid black;
+    padding: 5px 20px;
+    margin: 10px 0;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.appointment-info {
+    color: #333;
+    font-weight: bold;
 }

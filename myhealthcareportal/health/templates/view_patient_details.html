@@ -1,0 +1,100 @@
+{% extends "base_doctor.html" %}
+
+{% block content %}
+<div class="patient-details-container">
+    <div class="patient-details-section">
+        <h2>Patient Details</h2>
+        <p><strong>Name:</strong> {{ patient.name }}</p>
+        <p><strong>Email:</strong> {{ patient.email }}</p>
+        <p><strong>Mobile No:</strong> {{ patient.mobile_no }}</p>
+        <p><strong>Address:</strong> {{ patient.address }}</p>
+        <p><strong>Weight:</strong> {{ patient.weight }}</p>
+        <p><strong>Height:</strong> {{ patient.height }}</p>
+        <p><strong>Blood Group:</strong> {{ patient.blood_group }}</p>
+        <p><strong>Gender:</strong> {{ patient.gender }}</p>
+        <p><strong>Age:</strong> {{ patient.age }}</p>
+    </div>
+
+    <div class="medical-history-section">
+        <h2>Medical History</h2>
+        {% if medical_history %}
+            <div class="medical-history-details">
+                {% for history in medical_history %}
+                    <div class="history-item">
+                        <div class="history-record">
+                            <p><strong>Allergies:</strong> {{ history.allergies }}</p>
+                        </div>
+                        <div class="history-record">
+                            <p><strong>Prior Diseases:</strong> {{ history.prior_diseases }}</p>
+                        </div>
+                        <div class="history-record">
+                            <p><strong>Family History:</strong> {{ history.family_history }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No medical history records found.</p>
+        {% endif %}
+    </div>
+
+    <div class="medical-reports-section">
+        <h2>Medical Reports</h2>
+        {% if medical_reports %}
+            <div class="medical-report-details">
+                {% for report in medical_reports %}
+                    <div class="report-item">
+                        <p><strong>Report Name:</strong> {{ report.medical_report_name }} - <strong>Date:</strong> {{ report.test_date }}</p>
+                        <a href="{{ report.medical_report.url }}" download>Download Report</a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No medical reports found.</p>
+        {% endif %}
+    </div>
+
+    
+</div>
+<div class="appointments-section">
+    {% for appointment in appointments_with_consultations %}
+        <div class="appointment-item">
+            <h2>Appointment on {{ appointment.appointment_date_time }}</h2>
+            <p><strong>Subject:</strong> {{ appointment.subject }}</p>
+            {% if not appointment.completed %}
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="appointment_id" value="{{ appointment.id }}">
+                    <button type="submit" name="mark_done">Mark as Done</button>
+                    <a href="{% url 'edit_appointment' appointment.id %}?referrer=patient_details">Edit Appointment</a>
+                </form>
+                <form method="post" action="{% url 'delete_appointment' appointment.id %}?referrer=patient_details">
+                    {% csrf_token %}
+                    <button type="submit">Delete Appointment</button>
+                </form>
+            {% else %}
+                <p><strong>Status:</strong> Completed</p>
+            {% endif %}
+            <h3>Consultations:</h3>
+            {% if appointment.consultationhistory_set.exists %}
+                <div class="consultations-details">
+                    {% for consultation in appointment.consultationhistory_set.all %}
+                        <div class="consultation-item">
+                            <p><strong>Date:</strong> {{ consultation.last_updated_on }}</p>
+                            <p><strong>Symptoms:</strong> {{ consultation.symptoms }}</p>
+                            <p><strong>Diagnosis:</strong> {{ consultation.diagnosis }}</p>
+                            <p><strong>Medication:</strong> {{ consultation.prescribed_medication }}</p>
+                            <p><strong>Lab Tests:</strong> {{ consultation.recommended_lab_tests }}</p>
+                            <p><strong>Remarks:</strong> {{ consultation.remarks }}</p>
+                            <p><strong>Follow-up Date:</strong> {{ consultation.follow_up_date }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>No consultations for this appointment.</p>
+                <a href="{% url 'add_patient_consultation' patient_id=patient.id %}?appointment_id={{ appointment.id }}">Add Consultation</a>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
