@@ -10,8 +10,8 @@ urlpatterns = [
 
     # Patient-specific views
     path('patient/dashboard/', views.patient_dashboard, name='patient_dashboard'),  # Patient dashboard
-
-    # Doctor-specific views
-    path('doctor/dashboard/', views.doctor_dashboard, name='doctor_dashboard'),  # Doctor dashboard
-
+    path('patient/update_details/', views.update_patient_details, name='update_patient_details'),  # Update personal details
+    path('patient/upload_record/', views.upload_medical_record, name='upload_medical_record'),  # Upload medical record
+    path('patient/medical_history/', views.view_medical_history, name='view_medical_history'),  # View medical history
+    path('patient/medical_reports/', views.view_medical_reports, name='view_medical_reports'),  
 ]

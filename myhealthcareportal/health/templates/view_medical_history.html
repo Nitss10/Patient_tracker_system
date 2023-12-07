@@ -1,0 +1,26 @@
+{% extends "base_patient.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Medical History</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ add_form.as_p }}
+        <button type="submit" name="add" class="btn-primary">Add Medical History</button>
+    </form>
+
+    {% for history in medical_history %}
+    <div class="medical-history-item">
+        <h3>Medical History</h3>
+        <ul>
+            <li><strong>Allergies:</strong> {{ history.allergies }}</li>
+            <li><strong>Prior Diseases:</strong> {{ history.prior_diseases }}</li>
+            <li><strong>Family History:</strong> {{ history.family_history }}</li>
+        </ul>
+    </div>
+    {% empty %}
+    <p>No medical history records found.</p>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -49,3 +49,26 @@ class PatientSignUpForm(UserCreationForm):
         model = User
         fields = ('username', 'email', 'password1', 'password2', 'name', 'mobile_no',
                   'address', 'weight', 'height', 'blood_group', 'gender', 'age')
+
+
+class PatientDetailsForm(forms.ModelForm):
+    class Meta:
+        model = Patient
+        fields = ['name', 'email', 'mobile_no', 'address',
+                  'weight', 'height', 'blood_group', 'gender', 'age']
+
+
+class MedicalRecordForm(forms.ModelForm):
+    class Meta:
+        model = PatientMedicalReports
+        fields = ['medical_report_name', 'test_date', 'medical_report']
+        widgets = {
+            'test_date': forms.DateInput(attrs={'type': 'date'}),
+            'medical_report': forms.FileInput()  # Ensure this is included
+        }
+
+
+class MedicalHistoryForm(forms.ModelForm):
+    class Meta:
+        model = PatientMedicalHistory
+        fields = ['allergies', 'prior_diseases', 'family_history']

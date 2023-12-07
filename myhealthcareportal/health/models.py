@@ -27,3 +27,15 @@ class Patient(models.Model):
     blood_group = models.CharField(max_length=255)
     gender = models.CharField(max_length=255)
     age = models.IntegerField()
+
+class PatientMedicalHistory(models.Model):
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    allergies = models.CharField(max_length=255)
+    prior_diseases = models.CharField(max_length=255)
+    family_history = models.CharField(max_length=255)
+
+class PatientMedicalReports(models.Model):
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    medical_report_name = models.CharField(max_length=255)
+    test_date = models.DateField()
+    medical_report = models.FileField(upload_to='medical_reports/')

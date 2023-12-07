@@ -1,0 +1,21 @@
+{% extends "base_patient.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Medical Reports for {{ patient.name }}</h2>
+
+    {% if medical_reports %}
+        <div class="medical-reports">
+            {% for report in medical_reports %}
+            <div class="medical-report-item">
+                <h3>{{ report.medical_report_name }}</h3>
+                <p>Date: {{ report.test_date }}</p>
+                <a href="{{ report.medical_report.url }}" download class="btn-download">Download Report</a>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No medical reports found for this patient.</p>
+    {% endif %}
+</div>
+{% endblock %}
