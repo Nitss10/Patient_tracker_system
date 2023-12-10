@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.db.models import Q, Count
 from django.db.models.functions import TruncDate
 from django.db import IntegrityError 
+from django.http import FileResponse
 from .forms import * 
 import pytz
 
@@ -172,7 +173,7 @@ def schedule_appointment(request):
             working_hours_start = proposed_time.replace(hour=10, minute=0, second=0, microsecond=0)
             working_hours_end = proposed_time.replace(hour=17, minute=0, second=0, microsecond=0)
 
-            if (proposed_time.replace(tzinfo=None) < timezone.localtime(timezone=currentTimeZone).replace(tzinfo=None)):
+            if (proposed_time < timezone.localtime()):
                 messages.error(request, "Time cannot be in the past")
                 return render(request, 'schedule_appointment.html', {'form': form})
 
@@ -212,15 +213,9 @@ def view_appointments(request):
     # Fetch appointments for the logged-in patient with their consultation history
     appointments = Appointment.objects.filter(patient=patient).prefetch_related('consultationhistory_set')
 
-    timezone.activate(currentTimeZone)
-    # Get localtime in the timezone set above which is then used to filter the appointments
-    now = timezone.localtime(timezone.now())
-
     # Separate upcoming and past appointments
-    upcoming_appointments = appointments.filter(appointment_date_time__gte=now, completed=0).order_by('appointment_date_time')
-    past_appointments = appointments.filter(appointment_date_time__lt=now).order_by('-appointment_date_time') | appointments.filter(completed=1).order_by('-appointment_date_time')
-
-    # Now you can access the consultation history for each appointment in the template
+    upcoming_appointments = appointments.filter(appointment_date_time__gte=timezone.now()).order_by('appointment_date_time')
+    past_appointments = appointments.filter(appointment_date_time__lt=timezone.now()).order_by('-appointment_date_time') | appointments.filter(completed=1).order_by('-appointment_date_time')    # Now you can access the consultation history for each appointment in the template
 
     context = {
         'upcoming_appointments': upcoming_appointments,
@@ -279,18 +274,10 @@ def view_medical_reports(request):
 
 # Doctor-specific views
 
-@login_required
-def doctor_dashboard(request):
-    doctor = get_object_or_404(Doctor, user=request.user)
-
-    # Change timezone here and in view_appointments
-    timezone.activate(currentTimeZone)
-
-    # Default time range is today
+def get_appointment_filters(request, doctor):
     start_date = timezone.now().date()
     end_date = start_date
 
-    # Update time range based on user input
     if 'time_range' in request.GET:
         time_range = request.GET['time_range']
         if time_range == 'week':
@@ -303,41 +290,47 @@ def doctor_dashboard(request):
             start_date = timezone.datetime.strptime(request.GET['custom_start'], '%Y-%m-%d').date()
             end_date = timezone.datetime.strptime(request.GET['custom_end'], '%Y-%m-%d').date()
 
-    # Get appointments within the specified date range
-    appointments = Appointment.objects.filter(
-        doctor=doctor,
-        appointment_date_time__range=(
-            timezone.make_aware(timezone.datetime.combine(start_date, timezone.datetime.min.time())),
-            timezone.make_aware(timezone.datetime.combine(end_date, timezone.datetime.max.time()))
-        )
-    ).order_by('appointment_date_time')
+    start_datetime = timezone.make_aware(timezone.datetime.combine(start_date, timezone.datetime.min.time()))
+    end_datetime = timezone.make_aware(timezone.datetime.combine(end_date, timezone.datetime.max.time()))
 
-    # Top X appointments
+    return {
+        'doctor': doctor,
+        'appointment_date_time__range': (start_datetime, end_datetime)
+    }, start_date, end_date
+
+@login_required
+def doctor_dashboard(request):
+    doctor = get_object_or_404(Doctor, user=request.user)
+    appointment_filters, start_date, end_date = get_appointment_filters(request, doctor)
+
+    appointments = Appointment.objects.filter(**appointment_filters).order_by('appointment_date_time')
+
     if 'top_x' in request.GET:
         try:
             top_x = int(request.GET['top_x'])
             appointments = appointments[:top_x]
         except ValueError:
-            pass  # Ignore if the input is not a valid integer
+            pass
 
-    # Handle marking appointments as completed
     if request.method == 'POST':
         appointment_id = request.POST.get('appointment_id')
         if appointment_id:
             appointment = get_object_or_404(Appointment, pk=appointment_id, doctor=doctor)
-            appointment.completed = True  # Marking the appointment as completed
+            appointment.completed = True
             appointment.save()
             messages.success(request, "Appointment marked as completed.")
             return redirect('doctor_dashboard')
 
+    # Example of using the same filters for a different query
+    # additional_results = AnotherModel.objects.filter(**appointment_filters)
+
     context = {
-        'doctor': doctor,
         'appointments': appointments,
-        'start_date': start_date,
+        'start_date': start_date,  # Add start_date to the context
         'end_date': end_date,
+        # 'additional_results': additional_results,  # Uncomment if needed
     }
     return render(request, 'doctor_dashboard.html', context)
-
 
 @login_required
 def view_patient_list(request):
@@ -386,7 +379,7 @@ def view_patient_details(request, patient_id):
         return redirect('home')
 
     patient = get_object_or_404(Patient, pk=patient_id)
-    appointments_with_consultations = Appointment.objects.filter(patient=patient).order_by('-appointment_date_time').prefetch_related('consultationhistory_set')
+    appointments_with_consultations = Appointment.objects.filter(patient=patient, doctor=request.user.doctor).order_by('-appointment_date_time').prefetch_related('consultationhistory_set')
     medical_history = PatientMedicalHistory.objects.filter(patient=patient)
     medical_reports = PatientMedicalReports.objects.filter(patient=patient)
 
@@ -453,11 +446,20 @@ def edit_appointment(request, appointment_id):
         if form.is_valid():
             form.save()
             messages.success(request, "Appointment updated successfully.")
-            referrer = request.GET.get('referrer', 'patient_details')
-            if referrer == 'dashboard':
+
+        # Handle marking appointments as completed
+        appointment_id = request.POST.get('appointment_id')
+        if appointment_id:
+            appointment = get_object_or_404(Appointment, pk=appointment_id, doctor=request.user.doctor)
+            appointment.completed = True  # Marking the appointment as completed
+            appointment.save()
+            messages.success(request, "Appointment marked as completed.")
+
+        referrer = request.GET.get('referrer', 'patient_details')
+        if referrer == 'dashboard':
                 return redirect('doctor_dashboard')
-            else:
-                return redirect('view_patient_details', patient_id=appointment.patient.id)
+        else:
+            return redirect('view_patient_details', patient_id=appointment.patient.id)
     
     else:
         form = AppointmentForm(instance=appointment)
@@ -482,16 +484,31 @@ def delete_appointment(request, appointment_id):
         return redirect('home')
 
 
-
-
 @login_required
 def view_appointment_calendar(request):
-    dates = Appointment.objects.annotate(date=TruncDate(
-        'appointment_date_time')).values('date').annotate(c=Count('id'))
+    # Get the doctor for the logged-in user
+    doctor = get_object_or_404(Doctor, user=request.user)
 
-    appointments = {date['date']: Appointment.objects.filter(
-        appointment_date_time__date=date['date']) for date in dates}
+    # Annotate and count appointments by date for the logged-in doctor
+    dates = Appointment.objects.filter(doctor=doctor).annotate(
+        date=TruncDate('appointment_date_time')
+    ).values('date').annotate(c=Count('id'))
+
+    # Prepare appointments dictionary for the logged-in doctor
+    appointments = {
+        date['date']: Appointment.objects.filter(
+            doctor=doctor,
+            appointment_date_time__date=date['date']
+        ) for date in dates
+    }
 
     context = {'appointments': appointments}
 
-    return render(request, 'calendar.html', context)
+    return render(request, 'calendar.html',context)
+
+
+def download_file(request, filename):
+    filepath = "medical_reports/" + filename
+    response = FileResponse(open(filepath, 'rb'))
+    response['Content-Disposition'] = f'attachment; filename="{filename}"'
+    return response

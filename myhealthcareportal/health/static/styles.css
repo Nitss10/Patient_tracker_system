@@ -375,15 +375,11 @@ ul li {
     border-radius: 5px;
 }
 
-.dashboard-filters {
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
 .filter-form {
     display: flex;
+    margin-bottom: 20px;
+    /* width: 100%; */
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -683,6 +679,7 @@ body {
 .calendar {
     padding: 3vb 5vh;
 }
+
 .appointment {
     border: 2px solid black;
     padding: 5px 20px;

@@ -45,7 +45,7 @@
                 {% for report in medical_reports %}
                     <div class="report-item">
                         <p><strong>Report Name:</strong> {{ report.medical_report_name }} - <strong>Date:</strong> {{ report.test_date }}</p>
-                        <a href="{{ report.medical_report.url }}" download>Download Report</a>
+                        <a href="{% url 'download_file' report.medical_report.url|cut:'/medical_reports/' %}" download>Download Report</a>
                     </div>
                 {% endfor %}
             </div>
@@ -62,7 +62,7 @@
             <h2>Appointment on {{ appointment.appointment_date_time }}</h2>
             <p><strong>Subject:</strong> {{ appointment.subject }}</p>
             {% if not appointment.completed %}
-                <form method="post">
+                <form method="post" action="{% url 'edit_appointment' appointment.id %}?referrer=patient_details">
                     {% csrf_token %}
                     <input type="hidden" name="appointment_id" value="{{ appointment.id }}">
                     <button type="submit" name="mark_done">Mark as Done</button>

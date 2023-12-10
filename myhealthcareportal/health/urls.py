@@ -7,6 +7,7 @@ urlpatterns = [
     path('login/', views.login_view, name='login'),  # Login view
     path('logout/', views.logout_view, name='logout'),  # Logout view
     path('signup/', views.signup_view, name='signup'),  # Signup view
+    path('download/<str:filename>/', views.download_file, name='download_file'), # File download
 
     # Patient-specific views
     path('patient/dashboard/', views.patient_dashboard, name='patient_dashboard'),  # Patient dashboard

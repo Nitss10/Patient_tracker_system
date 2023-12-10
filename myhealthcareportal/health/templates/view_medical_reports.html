@@ -10,7 +10,7 @@
             <div class="medical-report-item">
                 <h3>{{ report.medical_report_name }}</h3>
                 <p>Date: {{ report.test_date }}</p>
-                <a href="{{ report.medical_report.url }}" download class="btn-download">Download Report</a>
+                <a href="{% url 'download_file' report.medical_report.url|cut:'/medical_reports/' %}" download class="btn-download">Download Report</a>
             </div>
             {% endfor %}
         </div>
