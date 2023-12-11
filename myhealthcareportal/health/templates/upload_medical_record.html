@@ -2,22 +2,22 @@
 
 {% block content %}
 <div class="container">
-    <h2>Upload Medical Record</h2>
+    <h2 class="mb-4">Upload Medical Record</h2>
     <form method="post" enctype="multipart/form-data" class="medical-record-form">
         {% csrf_token %}
         
-        <div class="form-group">
-            <label for="{{ form.medical_report_name.id_for_label }}">Report Name</label>
+        <div class="mb-3">
+            <label for="{{ form.medical_report_name.id_for_label }}" class="form-label">Report Name</label>
             {{ form.medical_report_name }}
         </div>
         
-        <div class="form-group">
-            <label for="{{ form.test_date.id_for_label }}">Test Date</label>
+        <div class="mb-3">
+            <label for="{{ form.test_date.id_for_label }}" class="form-label">Test Date</label>
             {{ form.test_date }}
         </div>
         
-        <div class="form-group">
-            <label for="{{ form.medical_report.id_for_label }}">Medical Report (PDF)</label>
+        <div class="mb-3">
+            <label for="{{ form.medical_report.id_for_label }}" class="form-label">Medical Report (PDF)</label>
             {{ form.medical_report }}
         </div>
         

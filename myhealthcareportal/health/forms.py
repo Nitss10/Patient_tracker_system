@@ -83,8 +83,12 @@ class AppointmentForm(forms.ModelForm):
         queryset=Doctor.objects.all(),
         empty_label="Select Doctor"
     )
+    # appointment_date_time = forms.DateTimeField(
+    #     widget=forms.DateTimeInput(attrs={'type': 'datetime-local'})
+    # )
     appointment_date_time = forms.DateTimeField(
-        widget=forms.DateTimeInput(attrs={'type': 'datetime-local'})
+        widget=forms.DateTimeInput(attrs={'type': 'text', 'class': 'form-control datetimepicker', 'placeholder': 'MM/DD/YYYY hh:mm AM/PM'}),
+        input_formats=['%m/%d/%Y %I:%M %p']  # Specify the desired format here
     )
 
     class Meta:

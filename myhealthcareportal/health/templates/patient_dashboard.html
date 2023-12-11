@@ -1,19 +1,41 @@
-<!-- patient_dashboard.html -->
 {% extends "base_patient.html" %}
 
 {% block content %}
-<div class="container">
-    <div class="dashboard-content">
-        <h2>Welcome, {{ patient.name }}!</h2>
-        <div class="patient-info">
-            <p>Email: {{ patient.email }}</p>
-            <p>Mobile No: {{ patient.mobile_no }}</p>
-            <p>Address: {{ patient.address }}</p>
-            <p>Weight: {{ patient.weight }} kg</p>
-            <p>Height: {{ patient.height }} cm</p>
-            <p>Blood Group: {{ patient.blood_group }}</p>
-            <p>Gender: {{ patient.gender }}</p>
-            <p>Age: {{ patient.age }}</p>
+<div class="dashboard-content container mt-4">
+    <h2 class="mb-4">Welcome, {{ patient.name }}!</h2>
+
+    <div class="card mb-4">
+        <div class="card-body patient-info">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <strong>Email:</strong> {{ patient.email }}
+                    </div>
+                    <div class="mb-3">
+                        <strong>Mobile No:</strong> {{ patient.mobile_no }}
+                    </div>
+                    <div class="mb-3">
+                        <strong>Address:</strong> {{ patient.address }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <strong>Weight:</strong> {{ patient.weight }} kg
+                    </div>
+                    <div class="mb-3">
+                        <strong>Height:</strong> {{ patient.height }} cm
+                    </div>
+                    <div class="mb-3">
+                        <strong>Blood Group:</strong> {{ patient.blood_group }}
+                    </div>
+                    <div class="mb-3">
+                        <strong>Gender:</strong> {{ patient.gender }}
+                    </div>
+                    <div class="mb-3">
+                        <strong>Age:</strong> {{ patient.age }}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

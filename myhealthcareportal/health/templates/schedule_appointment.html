@@ -2,22 +2,22 @@
 
 {% block content %}
 <div class="container">
-    <h2>Schedule an Appointment</h2>
+    <h2 class="mb-4">Schedule an Appointment</h2>
     <form method="post" class="appointment-form">
         {% csrf_token %}
         
-        <div class="form-group">
-            <label for="{{ form.doctor.id_for_label }}">Select Doctor</label>
+        <div class="mb-3">
+            <label for="{{ form.doctor.id_for_label }}" class="form-label">Select Doctor</label>
             {{ form.doctor }}
         </div>
         
-        <div class="form-group">
-            <label for="{{ form.appointment_date_time.id_for_label }}">Appointment Date and Time</label>
+        <div class="mb-3">
+            <label for="{{ form.appointment_date_time.id_for_label }}" class="form-label">Appointment Date and Time</label>
             {{ form.appointment_date_time }}
         </div>
         
-        <div class="form-group">
-            <label for="{{ form.subject.id_for_label }}">Subject</label>
+        <div class="mb-3">
+            <label for="{{ form.subject.id_for_label }}" class="form-label">Subject</label>
             {{ form.subject }}
         </div>
         
