@@ -8,18 +8,19 @@
     <div class="appointments-section">
         <h3>Upcoming Appointments</h3>
         {% if upcoming_appointments %}
-        <ul class="appointment-list">
+        <ul class="list-group">
             {% for appointment in upcoming_appointments %}
-            <li class="appointment-item">
+            <li class="list-group-item">
                 <div class="appointment-details">
-                    <h4>Appointment on {{ appointment.appointment_date_time|date:"F d, Y - h:i A" }}</h4>
-                    <p>with Dr. {{ appointment.doctor.name }}</p>
-                    <p>Subject: {{ appointment.subject }}</p>
+                    <h4 class="mb-3">Appointment on {{ appointment.appointment_date_time|date:"F d, Y - h:i A" }}</h4>
+                    <p class="mb-2">with Dr. {{ appointment.doctor.name }}</p>
+                    <p class="mb-2">Subject: {{ appointment.subject }}</p>
 
+                    <!-- Consultation Details for Upcoming Appointments -->
                     <div class="consultation-history">
                         <h5>Consultation Details:</h5>
                         {% for consultation in appointment.consultationhistory_set.all %}
-                        <div class="consultation-details">
+                        <div class="consultation-details mb-3">
                             <p><strong>Symptoms:</strong> {{ consultation.symptoms }}</p>
                             <p><strong>Diagnosis:</strong> {{ consultation.diagnosis }}</p>
                             <p><strong>Prescribed Medication:</strong> {{ consultation.prescribed_medication }}</p>
@@ -39,40 +40,40 @@
         {% endif %}
     </div>
 
-   <!-- Past Appointments Section -->
-   <div class="appointments-section">
-    <h3>Past Appointments</h3>
-    {% if past_appointments %}
-    <ul class="appointment-list">
-        {% for appointment in past_appointments %}
-        <li class="appointment-item">
-            <div class="appointment-details">
-                <h4>Appointment on {{ appointment.appointment_date_time|date:"F d, Y - h:i A" }}</h4>
-                <p>with Dr. {{ appointment.doctor.name }}</p>
-                <p>Subject: {{ appointment.subject }}</p>
+    <!-- Past Appointments Section -->
+    <div class="appointments-section">
+        <h3>Past Appointments</h3>
+        {% if past_appointments %}
+        <ul class="list-group">
+            {% for appointment in past_appointments %}
+            <li class="list-group-item">
+                <div class="appointment-details">
+                    <h4 class="mb-3">Appointment on {{ appointment.appointment_date_time|date:"F d, Y - h:i A" }}</h4>
+                    <p class="mb-2">with Dr. {{ appointment.doctor.name }}</p>
+                    <p class="mb-2">Subject: {{ appointment.subject }}</p>
 
-                <!-- Consultation Details for Past Appointments -->
-                <div class="consultation-history">
-                    <h5>Consultation Details:</h5>
-                    {% for consultation in appointment.consultationhistory_set.all %}
-                    <div class="consultation-details">
-                        <p><strong>Symptoms:</strong> {{ consultation.symptoms }}</p>
-                        <p><strong>Diagnosis:</strong> {{ consultation.diagnosis }}</p>
-                        <p><strong>Prescribed Medication:</strong> {{ consultation.prescribed_medication }}</p>
-                        <p><strong>Recommended Lab Tests:</strong> {{ consultation.recommended_lab_tests }}</p>
-                        <p><strong>Remarks:</strong> {{ consultation.remarks }}</p>
-                        <p><strong>Last Updated On:</strong> {{ consultation.last_updated_on }}</p>
-                        <p><strong>Follow Up Date:</strong> {% if consultation.follow_up_date %}{{ consultation.follow_up_date|date:"F d, Y" }}{% else %}N/A{% endif %}</p>
+                    <!-- Consultation Details for Past Appointments -->
+                    <div class="consultation-history">
+                        <h5>Consultation Details:</h5>
+                        {% for consultation in appointment.consultationhistory_set.all %}
+                        <div class="consultation-details mb-3">
+                            <p><strong>Symptoms:</strong> {{ consultation.symptoms }}</p>
+                            <p><strong>Diagnosis:</strong> {{ consultation.diagnosis }}</p>
+                            <p><strong>Prescribed Medication:</strong> {{ consultation.prescribed_medication }}</p>
+                            <p><strong>Recommended Lab Tests:</strong> {{ consultation.recommended_lab_tests }}</p>
+                            <p><strong>Remarks:</strong> {{ consultation.remarks }}</p>
+                            <p><strong>Last Updated On:</strong> {{ consultation.last_updated_on }}</p>
+                            <p><strong>Follow Up Date:</strong> {% if consultation.follow_up_date %}{{ consultation.follow_up_date|date:"F d, Y" }}{% else %}N/A{% endif %}</p>
+                        </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
                 </div>
-            </div>
-        </li>
-        {% endfor %}
-    </ul>
-    {% else %}
-    <p class="no-appointments">No past appointments.</p>
-    {% endif %}
-</div>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p class="no-appointments">No past appointments.</p>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}

@@ -2,22 +2,37 @@
 
 {% block content %}
 <div class="container">
-    <h2>Medical History</h2>
+    <h2 class="mb-4">Medical History</h2>
 
-    <form method="post">
+    <!-- Add Medical History Form -->
+    <form method="post" class="mb-4">
         {% csrf_token %}
-        {{ add_form.as_p }}
-        <button type="submit" name="add" class="btn-primary">Add Medical History</button>
+        <div class="mb-3">
+            <label for="{{ add_form.allergies.id_for_label }}" class="form-label">Allergies</label>
+            {{ add_form.allergies }}
+        </div>
+        <div class="mb-3">
+            <label for="{{ add_form.prior_diseases.id_for_label }}" class="form-label">Prior Diseases</label>
+            {{ add_form.prior_diseases }}
+        </div>
+        <div class="mb-3">
+            <label for="{{ add_form.family_history.id_for_label }}" class="form-label">Family History</label>
+            {{ add_form.family_history }}
+        </div>
+        <button type="submit" name="add" class="btn btn-primary">Add Medical History</button>
     </form>
 
+    <!-- Display Medical History Records -->
     {% for history in medical_history %}
-    <div class="medical-history-item">
-        <h3>Medical History</h3>
-        <ul>
-            <li><strong>Allergies:</strong> {{ history.allergies }}</li>
-            <li><strong>Prior Diseases:</strong> {{ history.prior_diseases }}</li>
-            <li><strong>Family History:</strong> {{ history.family_history }}</li>
-        </ul>
+    <div class="card mb-4">
+        <div class="card-body">
+            <h3 class="card-title">Medical History</h3>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>Allergies:</strong> {{ history.allergies }}</li>
+                <li class="list-group-item"><strong>Prior Diseases:</strong> {{ history.prior_diseases }}</li>
+                <li class="list-group-item"><strong>Family History:</strong> {{ history.family_history }}</li>
+            </ul>
+        </div>
     </div>
     {% empty %}
     <p>No medical history records found.</p>
