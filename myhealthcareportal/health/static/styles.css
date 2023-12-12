@@ -591,7 +591,7 @@ a:hover {
 
 
 body {
-    background: linear-gradient(45deg, #bfcbc5, #2c7291); /* You can adjust the gradient colors */
+    background-image: url('../static/images/patient_background.jpeg');
     color: #333; /* Change this to your desired text color for better contrast */
     margin: 0; /* Remove default body margin */
     min-height: 100vh; /* Ensure the gradient spans the full viewport height */
