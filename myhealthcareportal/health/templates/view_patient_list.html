@@ -14,7 +14,14 @@
             <ul class="patient-list">
                 {% for patient in patients %}
                     <li class="patient-item">
-                        {{ patient.name }} - {{ patient.id }} 
+                        <div class="patient-info">
+                            <div class="patient-name">
+                                <strong>Patient Name:</strong> {{ patient.name }}
+                            </div>
+                            <div class="patient-id">
+                                <strong>Patient ID:</strong> {{ patient.id }}
+                            </div>
+                        </div>
                         <a href="{% url 'view_patient_details' patient.id %}" class="details-link">View Details</a>
                     </li>
                     <!-- Add spacing between list items -->
