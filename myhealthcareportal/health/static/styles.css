@@ -503,6 +503,9 @@ ul li {
 }
 
 .patient-list-container {
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 5px;
     text-align: center;
 }
 
