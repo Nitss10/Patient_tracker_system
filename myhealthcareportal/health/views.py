@@ -186,12 +186,12 @@ def schedule_appointment(request):
 
             if (proposed_time < timezone.localtime()):
                 messages.error(request, "Time cannot be in the past")
-                form.add_error("Time cannot be in the past")
+                form.add_error('appointment_date_time',"Time cannot be in the past")
                 return render(request, 'schedule_appointment.html', {'form': form})
 
             if not (working_hours_start <= proposed_time < working_hours_end):
                 messages.error(request, "Doctors are only available between 10 AM to 5 PM.")
-                form.add_error("Doctors are only available between 10 AM to 5 PM.")
+                form.add_error('appointment_date_time', "Doctors are only available between 10 AM to 5 PM.")
                 return render(request, 'schedule_appointment.html', {'form': form})
 
             # Check for overlapping appointments
@@ -202,7 +202,7 @@ def schedule_appointment(request):
 
             if overlapping_appointments.exists():
                 messages.error(request, "The appointment time conflicts with an existing appointment.")
-                form.add_error("The appointment time conflicts with an existing appointment.")
+                form.add_error('appointment_date_time',"The appointment time conflicts with an existing appointment.")
                 return render(request, 'schedule_appointment.html', {'form': form})
 
             # No overlapping appointments and within working hours, proceed to save the new appointment
