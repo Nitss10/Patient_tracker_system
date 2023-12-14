@@ -11,6 +11,7 @@ from django.http import FileResponse
 from .forms import * 
 import pytz
 
+
 # Change timezone here
 currentTimeZone = pytz.timezone('US/Eastern')
 
@@ -76,7 +77,9 @@ def signup_view(request):
                 except IntegrityError:
                     messages.error(request, "A doctor with the same information already exists.")
             else:
-                messages.error(request, doctor_form.errors)
+                for field, errors in doctor_form.errors.items():
+                    for error in errors:
+                        messages.error(request, error)
         elif role == 'patient':
             patient_form = PatientSignUpForm(request.POST, request.FILES, prefix="patient")
             if patient_form.is_valid():
@@ -100,7 +103,11 @@ def signup_view(request):
                 except IntegrityError:
                     messages.error(request, "A patient with the same information already exists.")
             else:
-                messages.error(request, patient_form.errors)
+                for field, errors in patient_form.errors.items():
+                    for error in errors:
+                        messages.error(request, error)
+
+
 
     return render(request, 'signup.html', {'doctor_form': doctor_form, 'patient_form': patient_form})
 
@@ -154,6 +161,10 @@ def upload_medical_record(request):
             medical_record.save()
             messages.success(request, "Medical record added")
             return redirect('patient_dashboard')
+        else:
+        # Check if the error is due to an invalid file type
+            if 'medical_report' in form.errors:
+                messages.error(request, "please upload only pdf files")
     else:
         form = MedicalRecordForm()
 
@@ -175,10 +186,12 @@ def schedule_appointment(request):
 
             if (proposed_time < timezone.localtime()):
                 messages.error(request, "Time cannot be in the past")
+                form.add_error("Time cannot be in the past")
                 return render(request, 'schedule_appointment.html', {'form': form})
 
             if not (working_hours_start <= proposed_time < working_hours_end):
                 messages.error(request, "Doctors are only available between 10 AM to 5 PM.")
+                form.add_error("Doctors are only available between 10 AM to 5 PM.")
                 return render(request, 'schedule_appointment.html', {'form': form})
 
             # Check for overlapping appointments
@@ -189,6 +202,7 @@ def schedule_appointment(request):
 
             if overlapping_appointments.exists():
                 messages.error(request, "The appointment time conflicts with an existing appointment.")
+                form.add_error("The appointment time conflicts with an existing appointment.")
                 return render(request, 'schedule_appointment.html', {'form': form})
 
             # No overlapping appointments and within working hours, proceed to save the new appointment

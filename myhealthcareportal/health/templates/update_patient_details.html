@@ -3,6 +3,19 @@
 {% block content %}
 <div class="container">
     <h2>Update Your Details</h2>
+    {% if form.errors %}
+        <div class="alert alert-danger">
+            <strong>Error!</strong> Please correct the following errors:
+            <ul>
+                {% for field, error_list in form.errors.items %}
+                    {% for error in error_list %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+            {{ form.non_field_errors }}
+        </div>
+    {% endif %}
     <form method="post" class="patient-details-form">
         {% csrf_token %}
         

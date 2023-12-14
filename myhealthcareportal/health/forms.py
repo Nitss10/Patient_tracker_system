@@ -2,11 +2,23 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import Doctor, Patient, PatientMedicalReports, Appointment, ConsultationHistory, PatientMedicalHistory
+from django.core.exceptions import ValidationError
+import re
+from django.utils.translation import gettext_lazy as _
 
+
+def validate_mobile_number(value):
+    if not re.match(r'^\d{10}$', value):
+        raise ValidationError('Mobile number must be a 10-digit number.')
+
+def validate_name(value):
+    if not re.match(r'^[A-Za-z ]+$', value):
+        raise ValidationError('Name must contain only letters and spaces.')
 
 class DoctorSignUpForm(UserCreationForm):
-    name = forms.CharField(max_length=255)
-    mobile_no = forms.CharField(max_length=255)
+
+    name = forms.CharField(max_length=255,validators=[validate_name])
+    mobile_no = forms.CharField(max_length=10,validators=[validate_mobile_number])
     address = forms.CharField(widget=forms.Textarea)
     qualification = forms.ChoiceField(choices=[
         ("MBBS", "MBBS"),  # Bachelor of Medicine, Bachelor of Surgery
@@ -34,8 +46,8 @@ class DoctorSignUpForm(UserCreationForm):
 
 
 class PatientSignUpForm(UserCreationForm):
-    name = forms.CharField(max_length=255)
-    mobile_no = forms.CharField(max_length=255)
+    name = forms.CharField(max_length=255,validators=[validate_name])
+    mobile_no = forms.CharField(max_length=10,validators=[validate_mobile_number])
     address = forms.CharField(widget=forms.Textarea)
     weight = forms.IntegerField()
     height = forms.IntegerField()
@@ -52,6 +64,16 @@ class PatientSignUpForm(UserCreationForm):
 
 
 class PatientDetailsForm(forms.ModelForm):
+    name = forms.CharField(max_length=255,validators=[validate_name])
+    mobile_no = forms.CharField(max_length=10,validators=[validate_mobile_number])
+    address = forms.CharField(widget=forms.Textarea)
+    weight = forms.IntegerField()
+    height = forms.IntegerField()
+    blood_group = forms.ChoiceField(
+        choices=[('A+', 'A+'), ('A-', 'A-'), ('B+', 'B+'), ('B-', 'B-'), ('AB+', 'AB+'), ('AB-', 'AB-'), ('O+', 'O+'), ('O-', 'O-')])
+    gender = forms.ChoiceField(
+        choices=[('Male', 'Male'), ('Female', 'Female'), ('Other', 'Other')])
+    age = forms.IntegerField()
     class Meta:
         model = Patient
         fields = ['name', 'email', 'mobile_no', 'address',
@@ -59,6 +81,10 @@ class PatientDetailsForm(forms.ModelForm):
 
 
 class MedicalRecordForm(forms.ModelForm):
+    def validate_pdf(value):
+        if not value.name.lower().endswith('.pdf'):
+            raise ValidationError(_('Please upload pdf files only'), code='invalid_file_type')
+    medical_report = forms.FileField(validators=[validate_pdf])
     class Meta:
         model = PatientMedicalReports
         fields = ['medical_report_name', 'test_date', 'medical_report']
