@@ -2,6 +2,11 @@
 
 {% block content %}
 <div class="container">
+    <!-- Information window/message -->
+    <div class="alert alert-info" role="alert" id="persistentAlert">
+        Appointments can be booked from 10am to 5pm only.
+    </div>
+
     <h2 class="mb-4">Schedule an Appointment</h2>
     <form method="post" class="appointment-form">
         {% csrf_token %}
