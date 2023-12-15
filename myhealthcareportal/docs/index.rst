@@ -1,5 +1,10 @@
-Welcome to My Project's Documentation
-=====================================
+.. PatientTracker documentation master file, created by
+   sphinx-quickstart on Fri Dec 15 06:56:35 2023.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to PatientTracker's documentation!
+==========================================
 
 .. toctree::
    :maxdepth: 2
@@ -7,7 +12,9 @@ Welcome to My Project's Documentation
 
    modules
 
-Indices and Tables
+
+
+Indices and tables
 ==================
 
 * :ref:`genindex`

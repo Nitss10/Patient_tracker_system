@@ -1,19 +1,18 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>health package &#8212; myhealthcareportal  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
+    <title>health package &#8212; PatientTracker  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b3523f8e" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=cb25574f" />
+    <script src="_static/jquery.js?v=5d32c60e"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="health.migrations package" href="health.migrations.html" />
@@ -35,15 +34,22 @@
           <div class="body" role="main">
             
   <section id="health-package">
-<h1>health package<a class="headerlink" href="#health-package" title="Permalink to this heading">¶</a></h1>
+<h1>health package<a class="headerlink" href="#health-package" title="Link to this heading"></a></h1>
 <section id="subpackages">
-<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading">¶</a></h2>
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading"></a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="health.migrations.html">health.migrations package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="health.migrations.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="health.migrations.html#health-migrations-0001-initial-module">health.migrations.0001_initial module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="health.migrations.html#module-health.migrations.0002_alter_patientmedicalreports_medical_report">health.migrations.0002_alter_patientmedicalreports_medical_report module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="health.migrations.html#module-health.migrations.0002_alter_patientmedicalreports_medical_report">health.migrations.0002_alter_patientmedicalreports_medical_report module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="health.migrations.html#health.migrations.0002_alter_patientmedicalreports_medical_report.Migration"><code class="docutils literal notranslate"><span class="pre">Migration</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="health.migrations.html#health.migrations.0002_alter_patientmedicalreports_medical_report.Migration.dependencies"><code class="docutils literal notranslate"><span class="pre">Migration.dependencies</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="health.migrations.html#health.migrations.0002_alter_patientmedicalreports_medical_report.Migration.operations"><code class="docutils literal notranslate"><span class="pre">Migration.operations</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="health.migrations.html#module-health.migrations">Module contents</a></li>
 </ul>
 </li>
@@ -51,48 +57,49 @@
 </div>
 </section>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
 </section>
 <section id="module-health.admin">
-<span id="health-admin-module"></span><h2>health.admin module<a class="headerlink" href="#module-health.admin" title="Permalink to this heading">¶</a></h2>
+<span id="health-admin-module"></span><h2>health.admin module<a class="headerlink" href="#module-health.admin" title="Link to this heading"></a></h2>
+<p>This file is used to configure the health app.</p>
 </section>
 <section id="module-health.apps">
-<span id="health-apps-module"></span><h2>health.apps module<a class="headerlink" href="#module-health.apps" title="Permalink to this heading">¶</a></h2>
+<span id="health-apps-module"></span><h2>health.apps module<a class="headerlink" href="#module-health.apps" title="Link to this heading"></a></h2>
 <p>This file is used to configure the health app.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="health.apps.HealthConfig">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">health.apps.</span></span><span class="sig-name descname"><span class="pre">HealthConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_module</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/health/apps.html#HealthConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#health.apps.HealthConfig" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">health.apps.</span></span><span class="sig-name descname"><span class="pre">HealthConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_module</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/health/apps.html#HealthConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#health.apps.HealthConfig" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">AppConfig</span></code></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="health.apps.HealthConfig.default_auto_field">
-<span class="sig-name descname"><span class="pre">default_auto_field</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'django.db.models.BigAutoField'</span></em><a class="headerlink" href="#health.apps.HealthConfig.default_auto_field" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">default_auto_field</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'django.db.models.BigAutoField'</span></em><a class="headerlink" href="#health.apps.HealthConfig.default_auto_field" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="health.apps.HealthConfig.name">
-<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'health'</span></em><a class="headerlink" href="#health.apps.HealthConfig.name" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'health'</span></em><a class="headerlink" href="#health.apps.HealthConfig.name" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 </section>
 <section id="health-forms-module">
-<h2>health.forms module<a class="headerlink" href="#health-forms-module" title="Permalink to this heading">¶</a></h2>
+<h2>health.forms module<a class="headerlink" href="#health-forms-module" title="Link to this heading"></a></h2>
 </section>
 <section id="health-models-module">
-<h2>health.models module<a class="headerlink" href="#health-models-module" title="Permalink to this heading">¶</a></h2>
+<h2>health.models module<a class="headerlink" href="#health-models-module" title="Link to this heading"></a></h2>
 </section>
 <section id="health-tests-module">
-<h2>health.tests module<a class="headerlink" href="#health-tests-module" title="Permalink to this heading">¶</a></h2>
+<h2>health.tests module<a class="headerlink" href="#health-tests-module" title="Link to this heading"></a></h2>
 </section>
 <section id="health-urls-module">
-<h2>health.urls module<a class="headerlink" href="#health-urls-module" title="Permalink to this heading">¶</a></h2>
+<h2>health.urls module<a class="headerlink" href="#health-urls-module" title="Link to this heading"></a></h2>
 </section>
 <section id="health-views-module">
-<h2>health.views module<a class="headerlink" href="#health-views-module" title="Permalink to this heading">¶</a></h2>
+<h2>health.views module<a class="headerlink" href="#health-views-module" title="Link to this heading"></a></h2>
 </section>
 <section id="module-health">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-health" title="Permalink to this heading">¶</a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-health" title="Link to this heading"></a></h2>
 </section>
 </section>
 
@@ -103,7 +110,7 @@
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="index.html">myhealthcareportal</a></h1>
+<h1 class="logo"><a href="index.html">PatientTracker</a></h1>
 
 
 
@@ -160,7 +167,7 @@
       &copy;2023, Prajwal, Simran, Niti, Shreya.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
