@@ -1,8 +1,30 @@
 {% extends "base.html" %}
 
 {% block content %}
+<style>
+    .alert-error {
+        color: #a94442;
+        background-color: #f2dede;
+        border-color: #ebccd1;
+        margin-top: 10px;
+
+    }
+</style>
 <div class="container mt-5">
     <h2 class="text-center">Login</h2>
+    {% if form.errors %}
+        <div class="alert alert-error" role="alert">
+            <strong>Error!</strong> Please correct the following errors:
+            <ul>
+                {% for field, error_list in form.errors.items %}
+                    {% for error in error_list %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+            {{ form.non_field_errors }}
+        </div>
+    {% endif %}    
     <form method="post">
         {% csrf_token %}
         <div class="mb-3">
